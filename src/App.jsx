@@ -21,7 +21,7 @@ export default function App() {
     setAppState('processing');
 
     const formData = new FormData();
-    formData.append('image', file);
+    formData.append('file', file);
 
     try {
       // Send image to FastAPI backend
