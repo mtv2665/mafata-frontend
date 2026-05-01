@@ -1,15 +1,10 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
 
-// https://vite.dev/config/
+// تأكد أن التصدير هو default ويرجع كائن الإعدادات عبر defineConfig
 export default defineConfig({
   plugins: [react()],
-  server: {
-    proxy: {
-      '/unlock-shughul': {
-        target: 'http://localhost:8000',
-        changeOrigin: true,
-      },
-    },
-  },
-});
+  build: {
+    outDir: 'dist', // المجلد اللي Vercel بيتوقع يلقى فيه الملفات الجاهزة
+  }
+})
