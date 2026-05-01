@@ -1,0 +1,205 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   MIFTAH DESIGN SYSTEM — "Unlock the Roast"
+   ============================================ */
+
+:root {
+  --font-ar: 'Tajawal', sans-serif;
+  --font-en: 'Inter', sans-serif;
+  --font-roast: 'Reem Kufi Fun', sans-serif;
+  --gradient-miftah: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+  --gradient-gold: linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #fcd34d 100%);
+  --gradient-vault: linear-gradient(135deg, #0a0a0f 0%, #111118 50%, #1a1a2e 100%);
+  --glow-color: rgba(99, 102, 241, 0.4);
+}
+
+/* Base RTL styling */
+html {
+  direction: rtl;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-ar);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  background: #0a0a0f;
+  color: #e2e8f0;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #2d2d3f; border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: #3d3d5f; }
+
+/* ============================================
+   COMPONENT LAYER
+   ============================================ */
+@layer components {
+  /* Glass card — dark vault aesthetic */
+  .glass-card {
+    @apply bg-gray-900/60 backdrop-blur-2xl border border-gray-800/60 rounded-2xl;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .glass-card:hover {
+    @apply border-gray-700/80;
+    box-shadow: 0 0 30px rgba(99, 102, 241, 0.08), 0 8px 32px rgba(0,0,0,0.3);
+  }
+
+  /* Glass modal — heavier blur */
+  .glass-modal {
+    @apply backdrop-blur-3xl border border-gray-700/40 rounded-3xl;
+    background: linear-gradient(145deg, rgba(17,17,24,0.95), rgba(10,10,15,0.98));
+    box-shadow:
+      0 0 80px rgba(99, 102, 241, 0.1),
+      0 25px 80px rgba(0, 0, 0, 0.6),
+      inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+
+  /* Glow border effect */
+  .glow-border {
+    position: relative;
+  }
+  .glow-border::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7, #6366f1);
+    background-size: 300% 300%;
+    animation: gradientShift 4s ease infinite;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0.6;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold tracking-wide;
+    transition: all 0.2s ease;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-sm text-white transition-all duration-300;
+    background: var(--gradient-miftah);
+    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+  }
+  .btn-primary:hover {
+    box-shadow: 0 6px 30px rgba(99, 102, 241, 0.5);
+    transform: translateY(-2px);
+  }
+  .btn-primary:active {
+    transform: translateY(0);
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm border transition-all duration-300;
+    @apply border-gray-700 text-gray-400 hover:border-gray-500 hover:text-white hover:bg-gray-800/50;
+  }
+
+  .btn-danger {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-sm transition-all duration-300;
+    @apply bg-red-900/30 text-red-400 border border-red-800/50 hover:bg-red-900/50 hover:border-red-700;
+  }
+}
+
+/* ============================================
+   GRADIENT TEXT
+   ============================================ */
+.gradient-text {
+  background: var(--gradient-miftah);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text-gold {
+  background: var(--gradient-gold);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================
+   KEY ICON ANIMATION
+   ============================================ */
+.key-icon {
+  filter: drop-shadow(0 0 20px var(--glow-color));
+}
+
+/* ============================================
+   UPLOAD DROP ZONE
+   ============================================ */
+.upload-zone {
+  @apply relative rounded-3xl border-2 border-dashed transition-all duration-500 cursor-pointer;
+  border-color: rgba(99, 102, 241, 0.3);
+  background: radial-gradient(ellipse at center, rgba(99, 102, 241, 0.05) 0%, transparent 70%);
+}
+.upload-zone:hover, .upload-zone.drag-over {
+  border-color: rgba(99, 102, 241, 0.7);
+  background: radial-gradient(ellipse at center, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+  box-shadow: 0 0 60px rgba(99, 102, 241, 0.15);
+}
+
+/* ============================================
+   CONFIDENTIAL STAMP
+   ============================================ */
+.stamp {
+  @apply absolute font-black uppercase tracking-widest;
+  color: rgba(239, 68, 68, 0.7);
+  border: 4px solid rgba(239, 68, 68, 0.7);
+  border-radius: 8px;
+  padding: 4px 16px;
+  transform: rotate(-12deg);
+  font-size: 1.1rem;
+  letter-spacing: 0.15em;
+  text-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
+}
+
+/* ============================================
+   SCORE GAUGE
+   ============================================ */
+.score-ring {
+  filter: drop-shadow(0 0 20px var(--glow-color));
+}
+.score-ring circle {
+  transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================
+   NOISE OVERLAY
+   ============================================ */
+.noise-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ============================================
+   GRADIENT ANIMATIONS
+   ============================================ */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ============================================
+   STAGGER DELAYS
+   ============================================ */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
